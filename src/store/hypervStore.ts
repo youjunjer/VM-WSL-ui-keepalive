@@ -35,47 +35,65 @@ export const useHyperVStore = create<HyperVStore>((set, get) => ({
   },
 
   startVm: async (name: string) => {
-    set({ actionInProgress: `Starting ${name}...` });
+    set({ actionInProgress: name, error: null });
     try {
       await hypervService.startVm(name);
       await get().fetchVms(true);
+    } catch (error) {
+      logger.error("Failed to start Hyper-V VM:", "HyperVStore", name, error);
+      set({ error: String(error) });
     } finally {
       set({ actionInProgress: null });
     }
   },
 
   stopVm: async (name: string) => {
-    set({ actionInProgress: `Stopping ${name}...` });
+    set({ actionInProgress: name, error: null });
     try {
       await hypervService.stopVm(name);
       await get().fetchVms(true);
+    } catch (error) {
+      logger.error("Failed to stop Hyper-V VM:", "HyperVStore", name, error);
+      set({ error: String(error) });
     } finally {
       set({ actionInProgress: null });
     }
   },
 
   pauseVm: async (name: string) => {
-    set({ actionInProgress: `Pausing ${name}...` });
+    set({ actionInProgress: name, error: null });
     try {
       await hypervService.pauseVm(name);
       await get().fetchVms(true);
+    } catch (error) {
+      logger.error("Failed to pause Hyper-V VM:", "HyperVStore", name, error);
+      set({ error: String(error) });
     } finally {
       set({ actionInProgress: null });
     }
   },
 
   resumeVm: async (name: string) => {
-    set({ actionInProgress: `Resuming ${name}...` });
+    set({ actionInProgress: name, error: null });
     try {
       await hypervService.resumeVm(name);
       await get().fetchVms(true);
+    } catch (error) {
+      logger.error("Failed to resume Hyper-V VM:", "HyperVStore", name, error);
+      set({ error: String(error) });
     } finally {
       set({ actionInProgress: null });
     }
   },
 
   openRdp: async (name: string) => {
-    await hypervService.openRdp(name);
+    set({ error: null });
+    try {
+      await hypervService.openRdp(name);
+    } catch (error) {
+      logger.error("Failed to open Hyper-V RDP:", "HyperVStore", name, error);
+      set({ error: String(error) });
+    }
   },
 }));
 

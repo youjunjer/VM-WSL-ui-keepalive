@@ -107,7 +107,7 @@ pub fn stop_vm(_name: &str) -> Result<(), String> {
 
 #[cfg(target_os = "windows")]
 pub fn stop_vm(name: &str) -> Result<(), String> {
-    run_vm_command("Stop-VM -Name $args[0] -Shutdown -ErrorAction Stop", name)
+    run_vm_command("Stop-VM -Name $args[0] -TurnOff -Force -ErrorAction Stop", name)
 }
 
 #[cfg(not(target_os = "windows"))]
@@ -143,10 +143,17 @@ $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 $OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 
-$ip = Get-VMNetworkAdapter -VMName $args[0] -ErrorAction Stop |
+$ips = @(Get-VMNetworkAdapter -VMName $args[0] -ErrorAction Stop |
   ForEach-Object { $_.IPAddresses } |
-  Where-Object { $_ -and $_ -match '^\d{1,3}(\.\d{1,3}){3}$' } |
+  Where-Object { $_ -and $_ -match '^\d{1,3}(\.\d{1,3}){3}$' })
+
+$ip = $ips |
+  Where-Object { $_ -match '^(10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)' } |
   Select-Object -First 1
+
+if (-not $ip) {
+  $ip = $ips | Select-Object -First 1
+}
 
 if (-not $ip) {
   throw "No IPv4 address found for Hyper-V VM '$($args[0])'."

@@ -186,7 +186,7 @@ function HyperVCard({ vm }: { vm: HyperVVm }) {
   const { t } = useTranslation("dashboard");
   const { startVm, stopVm, openRdp, actionInProgress } = useHyperVStore();
   const running = isHyperVRunning(vm.state);
-  const disabled = !!actionInProgress;
+  const disabled = actionInProgress === vm.name;
   const ipAddress = vm.ipAddresses.find((ip) => ip && !ip.includes(":"));
 
   return (
@@ -255,7 +255,7 @@ function HyperVCard({ vm }: { vm: HyperVVm }) {
         >
           <span className="flex items-center justify-center gap-1.5 whitespace-nowrap">
             {running ? <StopIcon size="sm" /> : <PlayIcon size="sm" />}
-            {running ? "關閉" : "執行"}
+            {disabled ? "處理中" : (running ? "關閉" : "執行")}
           </span>
         </button>
         <button
@@ -505,13 +505,13 @@ export function DistroList() {
     <div>
       {/* Filter Bar - Two rows on mobile, one row on desktop */}
       <div className="sticky top-0 z-20 -mx-6 px-6 py-3 mb-1 bg-theme-bg-primary/95 backdrop-blur-sm border-b border-theme-border-primary/50">
-        <div className="relative">
+        <div className="relative flex items-start gap-2 flex-wrap">
         {/* IP Address - Always top right */}
         {wslIp && (
           <button
             onClick={copyIpToClipboard}
             data-testid="wsl-ip-display"
-            className="absolute right-0 top-0 flex items-center gap-2 px-3 py-2 bg-theme-bg-secondary border border-theme-border-primary rounded-lg whitespace-nowrap hover:bg-theme-bg-hover transition-colors group z-10"
+            className="order-last ml-auto flex items-center gap-2 px-3 py-2 bg-theme-bg-secondary border border-theme-border-primary rounded-lg whitespace-nowrap hover:bg-theme-bg-hover transition-colors group shrink-0"
             title={t('card.ipTooltip')}
           >
             <span className="text-xs font-mono text-theme-text-muted">{t('common:label.ip')}</span>
@@ -522,7 +522,7 @@ export function DistroList() {
         )}
 
         {/* Filters */}
-        <div className={`flex items-center gap-2 flex-wrap ${wslIp ? 'pr-44 lg:pr-48' : ''}`}>
+        <div className="flex items-center gap-2 flex-wrap min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap min-w-0 flex-1">
           {/* Status Filters */}
           <div className="flex items-center gap-1 p-1 bg-theme-bg-tertiary/50 rounded-lg border border-theme-border-primary" data-testid="status-filter-group">
