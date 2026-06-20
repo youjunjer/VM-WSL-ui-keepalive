@@ -506,9 +506,7 @@ export function DistroList() {
     <div>
       {/* Filter Bar */}
       <div className="sticky top-0 z-20 -mx-6 px-6 py-3 mb-1 bg-theme-bg-primary/95 backdrop-blur-sm border-b border-theme-border-primary/50">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between gap-2 flex-wrap">
-            <div className="flex items-center gap-2 flex-wrap min-w-0">
+        <div className="flex items-center gap-2 flex-wrap">
               {/* Status Filters */}
               <div className="flex items-center gap-1 p-1 bg-theme-bg-tertiary/50 rounded-lg border border-theme-border-primary" data-testid="status-filter-group">
             <button
@@ -638,58 +636,7 @@ export function DistroList() {
               );
             })}
               </div>
-            </div>
 
-            <div className="flex items-center gap-2 flex-wrap justify-end shrink-0 ml-auto">
-              <div className="flex items-center gap-1 p-1 bg-theme-bg-tertiary/50 rounded-lg border border-theme-border-primary" data-testid="view-mode-toggle">
-                <button
-                  type="button"
-                  onClick={() => handleViewModeChange("cards")}
-                  data-testid="view-mode-cards"
-                  aria-pressed={viewMode === "cards"}
-                  className={`p-1.5 rounded-md border transition-all ${
-                    viewMode === "cards"
-                      ? "bg-theme-accent-primary/20 text-theme-accent-primary border-theme-accent-primary/30"
-                      : "border-transparent text-theme-text-muted hover:text-theme-text-secondary hover:bg-theme-bg-hover"
-                  }`}
-                  title={t('view.cards')}
-                >
-                  <GridIcon size="sm" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleViewModeChange("list")}
-                  data-testid="view-mode-list"
-                  aria-pressed={viewMode === "list"}
-                  className={`p-1.5 rounded-md border transition-all ${
-                    viewMode === "list"
-                      ? "bg-theme-accent-primary/20 text-theme-accent-primary border-theme-accent-primary/30"
-                      : "border-transparent text-theme-text-muted hover:text-theme-text-secondary hover:bg-theme-bg-hover"
-                  }`}
-                  title={t('view.list')}
-                >
-                  <MenuIcon size="sm" />
-                </button>
-              </div>
-
-              {/* IP Address */}
-              {wslIp && (
-                <button
-                  onClick={copyIpToClipboard}
-                  data-testid="wsl-ip-display"
-                  className="flex items-center gap-2 px-3 py-2 bg-theme-bg-secondary border border-theme-border-primary rounded-lg whitespace-nowrap hover:bg-theme-bg-hover transition-colors group shrink-0"
-                  title={t('card.ipTooltip')}
-                >
-                  <span className="text-xs font-mono text-theme-text-muted">{t('common:label.ip')}</span>
-                  <span className="text-sm font-mono text-theme-accent-primary" data-testid="wsl-ip-value">{wslIp}</span>
-                  <CopyIcon size="sm" className={`text-theme-text-muted group-hover:text-theme-accent-primary transition-colors ${ipCopied ? 'text-theme-status-running' : ''}`} />
-                  {ipCopied && <span className="text-[10px] text-theme-status-running" data-testid="ip-copied-indicator">{t('common:label.copied')}</span>}
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 flex-wrap">
             {/* WSL Version Toggle Buttons */}
             <div className="flex items-center gap-1 p-1 bg-theme-bg-tertiary/50 rounded-lg border border-theme-border-primary" data-testid="version-filter-group">
               {hasWsl1 && (
@@ -750,9 +697,56 @@ export function DistroList() {
               </span>
               <span className="whitespace-nowrap">{tHeader('keepAlive.all')}</span>
             </button>
+
+            <div className="flex items-center gap-2 flex-wrap ml-auto">
+              <div className="flex items-center gap-1 p-1 bg-theme-bg-tertiary/50 rounded-lg border border-theme-border-primary" data-testid="view-mode-toggle">
+                <button
+                  type="button"
+                  onClick={() => handleViewModeChange("cards")}
+                  data-testid="view-mode-cards"
+                  aria-pressed={viewMode === "cards"}
+                  className={`p-1.5 rounded-md border transition-all ${
+                    viewMode === "cards"
+                      ? "bg-theme-accent-primary/20 text-theme-accent-primary border-theme-accent-primary/30"
+                      : "border-transparent text-theme-text-muted hover:text-theme-text-secondary hover:bg-theme-bg-hover"
+                  }`}
+                  title={t('view.cards')}
+                >
+                  <GridIcon size="sm" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleViewModeChange("list")}
+                  data-testid="view-mode-list"
+                  aria-pressed={viewMode === "list"}
+                  className={`p-1.5 rounded-md border transition-all ${
+                    viewMode === "list"
+                      ? "bg-theme-accent-primary/20 text-theme-accent-primary border-theme-accent-primary/30"
+                      : "border-transparent text-theme-text-muted hover:text-theme-text-secondary hover:bg-theme-bg-hover"
+                  }`}
+                  title={t('view.list')}
+                >
+                  <MenuIcon size="sm" />
+                </button>
+              </div>
+
+              {/* IP Address */}
+              {wslIp && (
+                <button
+                  onClick={copyIpToClipboard}
+                  data-testid="wsl-ip-display"
+                  className="flex items-center gap-2 px-3 py-2 bg-theme-bg-secondary border border-theme-border-primary rounded-lg whitespace-nowrap hover:bg-theme-bg-hover transition-colors group shrink-0"
+                  title={t('card.ipTooltip')}
+                >
+                  <span className="text-xs font-mono text-theme-text-muted">{t('common:label.ip')}</span>
+                  <span className="text-sm font-mono text-theme-accent-primary" data-testid="wsl-ip-value">{wslIp}</span>
+                  <CopyIcon size="sm" className={`text-theme-text-muted group-hover:text-theme-accent-primary transition-colors ${ipCopied ? 'text-theme-status-running' : ''}`} />
+                  {ipCopied && <span className="text-[10px] text-theme-status-running" data-testid="ip-copied-indicator">{t('common:label.copied')}</span>}
+                </button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
       {sourceFilter === "all" && hypervError && (
         <div className="mb-4 rounded-lg border border-theme-status-error/30 bg-theme-status-error/10 px-4 py-3 text-xs font-mono text-theme-status-error">
