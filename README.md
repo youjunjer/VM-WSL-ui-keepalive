@@ -23,6 +23,24 @@ Built with [Tauri](https://tauri.app/) (Rust) and [React](https://react.dev/)
 
 **Maintained by [尤濬哲 / youjunjer](https://github.com/youjunjer)** | **[GitHub](https://github.com/youjunjer/wsl-ui-keepalive)**
 
+## 原始專案與授權
+
+本專案 fork 自 Octasoft Ltd 的 WSL UI：
+[octasoft-ltd/wsl-ui](https://github.com/octasoft-ltd/wsl-ui)。
+
+此 fork 保留原專案的 GPL-3.0 授權，並在原始 WSL UI 的基礎上加入
+WSL keepalive 與狀態列調整。原作者的完整開發脈絡與 commit history
+請參考上游原始專案。
+
+## Original Project and License
+
+This project is a fork of Octasoft Ltd's WSL UI:
+[octasoft-ltd/wsl-ui](https://github.com/octasoft-ltd/wsl-ui).
+
+This fork keeps the original GPL-3.0 license and adds WSL keepalive and status
+bar changes on top of the original WSL UI. For the original development context
+and commit history, please refer to the upstream project.
+
 ## Hyper-V + WSL 雙平台分支
 
 這個 `main` 主幹保留純 WSL keepalive 版本。
