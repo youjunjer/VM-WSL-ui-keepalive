@@ -23,6 +23,23 @@ Built with [Tauri](https://tauri.app/) (Rust) and [React](https://react.dev/)
 
 **Maintained by [尤濬哲 / youjunjer](https://github.com/youjunjer)** | **[GitHub](https://github.com/youjunjer/wsl-ui-keepalive)**
 
+## Hyper-V + WSL 雙平台分支
+
+這個 `main` 主幹保留純 WSL keepalive 版本。
+
+如果需要同時監看與管理 Hyper-V VM 及 WSL 發行版，請使用
+[`feature/hyperv-vm-support`](https://github.com/youjunjer/wsl-ui-keepalive/tree/feature/hyperv-vm-support)
+分支。
+
+## Hyper-V + WSL Dual-Platform Branch
+
+This `main` branch keeps the WSL-only keepalive edition.
+
+For the dual-platform edition that monitors and manages both Hyper-V VMs and
+WSL distributions, use the
+[`feature/hyperv-vm-support`](https://github.com/youjunjer/wsl-ui-keepalive/tree/feature/hyperv-vm-support)
+branch.
+
 [![Watch the demo](https://img.youtube.com/vi/q59ZtKr7aqw/maxresdefault.jpg)](https://youtu.be/q59ZtKr7aqw)
 
 ## Features
